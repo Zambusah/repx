@@ -1,0 +1,39 @@
+<h2>Benvenuto nella tua Dashboard, {{request.user.username}}</h2>
+{% if user.is_teacher %}
+    <p>Sei registrato come <strong>Insegnante</strong>.</p>
+    <a href="{% url 'manage_subjects' %}">Imposta materie</a>
+    <ul>
+        {% for subject in subjects %}
+            <li>{{subject}}</li>
+        {% empty %}
+            <li><span style="color:red">Per favore, seleziona la materia che vuoi insegnare</span></li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'manage_availability' %}">Imposta la tua disponibilità</a>
+    <h3>Le tue disponibilità</h3>
+    <p>Hai {{availabilities|length}} disponibilità salvate.</p>
+    <ul>
+        {% for a in availabilities %}
+            <li>{{a.day_of_week}}: {{a.start_time}} - {{a.end_time}}</li>
+        {% empty %}
+            <li>Non hai ancora inserito disponibilità</li>
+        {% endfor %}
+    </ul>
+
+{% elif user.is_student %}
+    <p>Sei registrato come <strong>Studente</strong>.</p>
+    <h3>Le tue lezioni</h3>
+    <p>Hai {{availabilities|length}} disponibilità salvate.</p>
+    <ul>
+        {% for a in availabilities %}
+            <li>{{a.day_of_week}}: {{a.start_time}} - {{a.end_time}}</li>
+        {% empty %}
+            <li>Non hai ancora inserito disponibilità</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'book_lesson' %}">Prenota una lezione</a>
+
+{% else %}
+    <p>Il tuo ruolo non è definito</p>
+{% endif %}
+<a href="{% url 'logout' %}">Logout</a>

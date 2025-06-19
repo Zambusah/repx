@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Conferma lezione - REPS{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+  <h2 class="mb-4">Conferma la tua lezione</h2>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <ul class="list-group list-group-flush mb-4">
+        <li class="list-group-item"><strong>Materia:</strong> {{ subject_ita }}</li>
+        <li class="list-group-item"><strong>Data:</strong> {{ date|date:"d/m/Y" }}</li>
+        <li class="list-group-item"><strong>Ora:</strong> {{ start_time|time:"H:i" }} - {{ end_time|time:"H:i" }}</li>
+        <li class="list-group-item"><strong>Insegnante:</strong> {{ teacher.get_full_name|default:teacher.username }}</li>
+      </ul>
+
+      <form action="{% url 'create_checkout_session' %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success w-100">Paga con Stripe</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

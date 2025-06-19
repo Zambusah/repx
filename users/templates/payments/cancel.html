@@ -1,0 +1,16 @@
+{% block content %}
+  <h1>Pagamento annullato</h1>
+  <p>Il tuo pagamento non è andato a buon fine.</p>
+  <form action="{% url 'book_lesson' %}">
+    {% csrf_token %}
+    <button type="submit">
+        Prenota una lezione
+    </button>
+  </form>
+  <form action="{% url 'dashboard_student' %}">
+    {% csrf_token %}
+    <button type="submit">
+        Torna alla dashboard
+    </button>
+  </form>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load form_tags %}
+
+{% block title %}Modifica materie - REPS{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+  <h2 class="mb-4">Le tue materie, {{ request.user.first_name|default:request.user.username }}</h2>
+
+  <!-- Form per aggiungere nuova materia -->
+  <div class="card mb-4 shadow-sm">
+    <div class="card-body">
+      <form method="post" class="row g-2 align-items-end">
+        {% csrf_token %}
+        <div class="col-12 col-md-6">
+          {{ form.subject.label_tag }}
+          {{ form.subject|add_class:"form-select" }}
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-primary">Aggiungi materia</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Elenco materie attuali -->
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+      Materie attualmente assegnate
+    </div>
+    <div class="card-body">
+      {% if subjects %}
+        <ul class="list-group">
+          {% for subject in subjects %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              {{ subject.get_subject_display }}
+              <form action="{% url 'delete_subject' subject.pk %}" method="post" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-sm btn-outline-danger" title="Rimuovi">
+                  <i class="bi bi-x"></i> <!-- se usi Bootstrap Icons -->
+                  Rimuovi
+                </button>
+              </form>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="text-muted">Non hai ancora impostato alcuna materia.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <a href="{% url 'dashboard_teacher' %}" class="btn btn-secondary">Torna alla dashboard</a>
+  </div>
+</div>
+{% endblock %}

@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from . import views
+from users.views import home_view
 from django.contrib.auth import views as auth_views
 
 """

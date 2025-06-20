@@ -21,8 +21,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 def home_view(request):
-    return redirect('users/home.html')
-
+    return render(request, 'users/home.html')
 
 
 

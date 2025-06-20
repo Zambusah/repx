@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: nome-del-tuo-sito
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn tuo_progetto.wsgi:application"
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: tuo_progetto.settings
+      - key: SECRET_KEY
+        generateValue: true

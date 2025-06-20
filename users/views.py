@@ -20,6 +20,12 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 
+def home_view(request):
+    return redirect('users/home.html')
+
+
+
+
 def register_view(request):
     if request.method == 'POST':
         form = CustomerUserCreationForm(request.POST)

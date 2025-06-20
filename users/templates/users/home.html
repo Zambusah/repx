@@ -1,6 +1,53 @@
 {% extends "base.html" %}
 
+{% block title %}Benvenuto su REPS{% endblock %}
+
 {% block content %}
-  <h1>Benvenuto su REPS</h1>
-  <p>Prenota la tua lezione con facilità!</p>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 text-center">
+      <h1 class="fw-bold mb-4">Benvenuto su <span class="text-primary">REPS</span></h1>
+      <p class="lead mb-5">
+        REPS è la piattaforma che ti connette con insegnanti qualificati per lezioni private su misura.
+        Scegli la materia, l’orario e l’insegnante, e prenota in pochi click.
+      </p>
+
+      <div class="d-flex justify-content-center gap-3 flex-column flex-sm-row">
+        <a href="{% url 'register' %}" class="btn btn-primary btn-lg px-4">Registrati</a>
+        <a href="{% url 'login' %}" class="btn btn-outline-primary btn-lg px-4">Accedi</a>
+      </div>
+    </div>
+  </div>
+
+  <hr class="my-5">
+
+  <div class="row text-center g-4">
+    <div class="col-md-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title">Prenotazione semplice</h5>
+          <p class="card-text">Trova l’orario perfetto in pochi click grazie al nostro sistema intelligente di disponibilità.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title">Insegnanti qualificati</h5>
+          <p class="card-text">Ogni insegnante è verificato e specializzato nella materia che insegna.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title">Pagamenti sicuri</h5>
+          <p class="card-text">Paga in sicurezza con Stripe e ricevi conferma immediata della lezione.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

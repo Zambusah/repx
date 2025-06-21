@@ -51,7 +51,30 @@
     </div>
   </div>
 </div>
-
+ <!-- Sezione Disponibilità -->
+ <div class="col-12 col-md-6">
+  <div class="card shadow-sm h-100">
+    <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+      <span>Le tue disponibilità</span>
+      <a href="{% url 'manage_availability' %}" class="btn btn-sm btn-light">Modifica</a>
+    </div>
+    <div class="card-body">
+      {% if availabilities %}
+        <ul class="list-group list-group-flush">
+          {% for slot in availabilities %}
+          <li class="list-group-item">
+            {{ slot.get_day_of_week_display }} dalle {{ slot.start_time|time:"H:i" }} alle {{ slot.end_time|time:"H:i" }}
+          </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>Non hai ancora inserito disponibilità.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+</div>
+</div>
 
     <!-- Sezione Materie Insegnate -->
     <div class="col-md-6">
@@ -74,30 +97,7 @@
       </div>
     </div>
 
-    <!-- Sezione Disponibilità -->
-    <div class="col-12 col-md-6">
-      <div class="card shadow-sm h-100">
-        <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
-          <span>Le tue disponibilità</span>
-          <a href="{% url 'manage_availability' %}" class="btn btn-sm btn-light">Modifica</a>
-        </div>
-        <div class="card-body">
-          {% if availabilities %}
-            <ul class="list-group list-group-flush">
-              {% for slot in availabilities %}
-              <li class="list-group-item">
-                {{ slot.get_day_of_week_display }} dalle {{ slot.start_time|time:"H:i" }} alle {{ slot.end_time|time:"H:i" }}
-              </li>
-              {% endfor %}
-            </ul>
-          {% else %}
-            <p>Non hai ancora inserito disponibilità.</p>
-          {% endif %}
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+   
   
 {% endblock %}
 

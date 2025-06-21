@@ -142,7 +142,7 @@ EMAIL_HOST_PASSWORD = 'stqp pjad ztsg clpl'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')
-STRIPE_SECRET_KEY = os.environ.get('STRIPE_PRIVATE_KEY')
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
 LOGIN_URL = '/login/'
 
 import os

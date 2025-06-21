@@ -3,78 +3,80 @@
 {% block title %}Dashboard Insegnante - REPS{% endblock %}
 
 {% block content %}
-
 <div class="container py-4">
   <h1 class="mb-4">Ciao {{ user.first_name|default:user.username }}</h1>
-  <div class="row g-4">
-  <!-- Lezioni prenotate -->
-<div class="mt-5">
-  <div class="card shadow-sm">
-    <div class="card-header bg-dark text-white">
-      Lezioni prenotate
-    </div>
-    <div class="card-body">
-      {% if lessons %}
-        <div class="table-responsive">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>Studente</th>
-                <th>Materia</th>
-                <th>Data</th>
-                <th>Ora</th>
-                <th>Link</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for lesson in lessons %}
-              <tr>
-                <td>{{ lesson.student.get_full_name|default:lesson.student.username }}</td>
-                <td>{{ lesson.get_subject_display }}</td>
-                <td>{{ lesson.date|date:"d/m/Y" }}</td>
-                <td>{{ lesson.start_time|time:"H:i" }} - {{ lesson.end_time|time:"H:i" }}</td>
-                <td>
-                  {% if lesson.link %}
-                    <a href="{{ lesson.link }}" class="btn btn-sm btn-outline-primary" target="_blank">Apri</a>
-                  {% else %}
-                    <span class="text-muted">—</span>
-                  {% endif %}
-                </td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-      {% else %}
-        <p>Non hai lezioni prenotate al momento.</p>
-      {% endif %}
-    </div>
-  </div>
-</div>
- <!-- Sezione Disponibilità -->
- <div class="col-12 col-md-6">
-  <div class="card shadow-sm h-100">
-    <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
-      <span>Le tue disponibilità</span>
-      <a href="{% url 'manage_availability' %}" class="btn btn-sm btn-light">Modifica</a>
-    </div>
-    <div class="card-body">
-      {% if availabilities %}
-        <ul class="list-group list-group-flush">
-          {% for slot in availabilities %}
-          <li class="list-group-item">
-            {{ slot.get_day_of_week_display }} dalle {{ slot.start_time|time:"H:i" }} alle {{ slot.end_time|time:"H:i" }}
-          </li>
-          {% endfor %}
-        </ul>
-      {% else %}
-        <p>Non hai ancora inserito disponibilità.</p>
-      {% endif %}
-    </div>
-  </div>
-</div>
-</div>
 
+  <div class="row g-4">
+    <!-- Lezioni prenotate -->
+    <div class="col-12 mt-4">
+      <div class="card shadow-sm">
+        <div class="card-header bg-dark text-white">
+          Lezioni prenotate
+        </div>
+        <div class="card-body">
+          {% if lessons %}
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Studente</th>
+                    <th>Materia</th>
+                    <th>Data</th>
+                    <th>Ora</th>
+                    <th>Link</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for lesson in lessons %}
+                  <tr>
+                    <td>{{ lesson.student.get_full_name|default:lesson.student.username }}</td>
+                    <td>{{ lesson.get_subject_display }}</td>
+                    <td>{{ lesson.date|date:"d/m/Y" }}</td>
+                    <td>{{ lesson.start_time|time:"H:i" }} - {{ lesson.end_time|time:"H:i" }}</td>
+                    <td>
+                      {% if lesson.link %}
+                        <a href="{{ lesson.link }}" class="btn btn-sm btn-outline-primary" target="_blank">Apri</a>
+                      {% else %}
+                        <span class="text-muted">—</span>
+                      {% endif %}
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          {% else %}
+            <p>Non hai lezioni prenotate al momento.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NUOVA ROW per separare le sezioni -->
+  <div class="row g-4 mt-4">
+    <!-- Sezione Disponibilità -->
+    <div class="col-md-6">
+      <div class="card shadow-sm h-100">
+        <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+          <span>Le tue disponibilità</span>
+          <a href="{% url 'manage_availability' %}" class="btn btn-sm btn-light">Modifica</a>
+        </div>
+        <div class="card-body">
+          {% if availabilities %}
+            <ul class="list-group list-group-flush">
+              {% for slot in availabilities %}
+              <li class="list-group-item">
+                {{ slot.get_day_of_week_display }} dalle {{ slot.start_time|time:"H:i" }} alle {{ slot.end_time|time:"H:i" }}
+              </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p>Non hai ancora inserito disponibilità.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
 
     <!-- Sezione Materie Insegnate -->
     <div class="col-md-6">
@@ -97,8 +99,7 @@
       </div>
     </div>
   </div>
-
-   
-  
+</div>
 {% endblock %}
+
 

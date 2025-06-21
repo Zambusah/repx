@@ -24,12 +24,25 @@ def generate_time_choices(step_minutes=5):
 TIME_CHOICES = generate_time_choices(15)
 
 class CustomerUserCreationForm(UserCreationForm):
-    is_student = forms.BooleanField(required=False, label="Studente")
-    is_teacher = forms.BooleanField(required= False, label="Insegnante")
+    ROLE_CHOICES = [
+        ('student', 'Studente'),
+        ('teacher', 'Insegnante'),
+    ]
+    role = forms.ChoiceField(choices=ROLE_CHOICES, widget=forms.RadioSelect, label="Registrati come")
+
 
     class Meta:
         model=CustomerUser
-        fields = ['Nome','Cognome', 'username', 'email', 'password1', 'password2', 'is_student', 'is_teacher']
+        fields = ['Nome','Cognome', 'username', 'email', 'password1', 'password2']
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        role = self.cleaned_data['role']
+        user.is_student = (role == 'student')
+        user.is_teacher = (role == 'teacher')
+        if commit:
+            user.save()
+        return user
 
 class TeacherSubjectForm(forms.ModelForm):
     class Meta:

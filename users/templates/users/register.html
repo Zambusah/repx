@@ -12,17 +12,37 @@
       <form method="post" class="row g-3">
         {% csrf_token %}
 
-        {% for field in form %}
-          <div class="col-12">
-            {{ field.label_tag }}
-            {{ field|add_class:"form-control" }}
-            {% if field.help_text %}
-              <small class="form-text text-muted">{{ field.help_text }}</small>
-            {% endif %}
-            {% if field.errors %}
-              <div class="text-danger">{{ field.errors }}</div>
-            {% endif %}
+        {# CAMPO RUOLO SEPARATO (Studente / Insegnante) #}
+        <div class="col-12">
+          <label class="form-label d-block">Seleziona il tuo ruolo:</label>
+
+          <div class="btn-group" role="group" aria-label="Selezione ruolo">
+            <input type="radio" class="btn-check" name="role" id="role-studente" value="student" {% if form.role.value == "student" %}checked{% endif %}>
+            <label class="btn btn-outline-primary" for="role-studente">Studente</label>
+
+            <input type="radio" class="btn-check" name="role" id="role-insegnante" value="teacher" {% if form.role.value == "teacher" %}checked{% endif %}>
+            <label class="btn btn-outline-primary" for="role-insegnante">Insegnante</label>
           </div>
+
+          {% if form.role.errors %}
+            <div class="text-danger mt-2">{{ form.role.errors }}</div>
+          {% endif %}
+        </div>
+
+        {# RENDERING AUTOMATICO DEGLI ALTRI CAMPI #}
+        {% for field in form %}
+          {% if field.name != "role" %}
+            <div class="col-12">
+              {{ field.label_tag }}
+              {{ field|add_class:"form-control" }}
+              {% if field.help_text %}
+                <small class="form-text text-muted">{{ field.help_text }}</small>
+              {% endif %}
+              {% if field.errors %}
+                <div class="text-danger">{{ field.errors }}</div>
+              {% endif %}
+            </div>
+          {% endif %}
         {% endfor %}
 
         <div class="col-12 text-end">
@@ -33,3 +53,4 @@
   </div>
 </div>
 {% endblock %}
+

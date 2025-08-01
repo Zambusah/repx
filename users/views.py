@@ -17,7 +17,17 @@ from django.core.mail import send_mail
 from django.conf import settings
 import stripe 
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.views import PasswordResetView
+from django.urls import reverse_lazy
 
+
+class CustomPasswordResetView(PasswordResetView):
+    template_name = 'users/password_reset_form.html'
+    email_template_name = 'users/password_reset_email.html'
+    subject_template_name = 'users/password_reset_subject.txt'
+    success_url = reverse_lazy('password_reset_done')
+
+custom_password_reset_view = CustomPasswordResetView.as_view()
 
 
 def home_view(request):

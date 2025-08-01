@@ -3,6 +3,8 @@ from django.urls import path, include
 from . import views
 from users.views import home_view
 from django.contrib.auth import views as auth_views
+from users import views as user_views  # se hai una tua app chiamata `users`
+
 
 """
 path('users/', include('users.urls')),
@@ -33,4 +35,9 @@ path('create-checkout-session/', views.create_checkout_session, name='create_che
 path('success/', views.success_view, name='success'),
 path('cancel/', views.cancel_view, name='cancel'),
 path('confirm_lesson/', views.confirm_lesson_view, name='confirm_lesson'),
+path('password-reset/', user_views.custom_password_reset_view, name='password_reset'),
+path('password-reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='users/password_reset_done.html'), name='password_reset_done'),
+path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='users/password_reset_confirm.html'), name='password_reset_confirm'),
+path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'), name='password_reset_complete'),
+
 ]
